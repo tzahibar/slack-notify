@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Slack Notification
-        run: slack-notify.js
+        run: slack-notify
         env:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           message: 'Hello from GitHub Actions!'
