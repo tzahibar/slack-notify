@@ -1,11 +1,13 @@
 const core = require('@actions/core');
-const fetch = require('node-fetch');
 
 async function sendSlackMessage() {
     try {
         // Retrieve inputs from the workflow YAML file
         const webhookUrl = core.getInput('webhook-url');
         const message = core.getInput('message');
+
+        // Dynamically import node-fetch
+        const { default: fetch } = await import('node-fetch');
 
         // Construct the payload for the Slack message
         const payload = {
