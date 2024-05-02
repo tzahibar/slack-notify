@@ -5,6 +5,19 @@ jobs:
     runs-on: ubuntu-latest
     name: Slack notification
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20' # or any other Node.js version you need
+
+      - name: Install dependencies
+        run: |
+          npm install @actions/core
+          npm install @actions/github
+
       - name: Send Slack message
         id: slack
         uses: tzahibar/slack-notify@main
