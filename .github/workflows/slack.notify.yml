@@ -21,7 +21,7 @@ jobs:
 
       - name: Send Slack message
         id: slack
-        uses: tzahibar/slack-notify
+        uses: tzahibar/slack-notify@main
         with:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           message: 'Hello from GitHub Actions!'
