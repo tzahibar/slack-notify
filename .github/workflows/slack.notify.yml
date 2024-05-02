@@ -28,7 +28,7 @@ jobs:
     needs: build
     steps:
       - name: Send Slack Notification
-        uses: ./ # Assuming your JavaScript file and action.yml are in the root directory
+        uses: ./
         with:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           message: 'Hello from GitHub Actions!'
