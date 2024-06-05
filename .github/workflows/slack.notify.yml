@@ -5,10 +5,11 @@ on:
     inputs:
       serviceName:
         description: 'Service name'
+        default: 'slack-action'
         required: true
 
 jobs:
-  hello_world_job:
+  slack-notify:
     runs-on: ubuntu-latest
     name: Slack notification
     steps:
@@ -23,9 +24,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Wait for 'build-workflow' to complete
+      - name: Run Hello World
         run: |
-          source slack/slack.js
+          node slack/slack.js
 
       - name: Send Slack message
         id: slack
