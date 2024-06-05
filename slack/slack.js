@@ -4,6 +4,7 @@ const url = process.argv[2];
 const message = process.argv[3];
 
 console.log(`Hello from ${name}!`);
+console.log(`message ${message}!`);
 
 const data = {
     text: message,
