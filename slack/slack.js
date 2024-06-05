@@ -1,11 +1,12 @@
 const name = 'slack';
 const axios = require('axios');
+const url = process.argv[2];
+const message = process.argv[3];
 
 console.log(`Hello from ${name}!`);
 
-const url = 'https://hooks.slack.com/services/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';
 const data = {
-    text: 'Hello, World!',
+    text: message,
 };
 
 axios.post(url, data, {

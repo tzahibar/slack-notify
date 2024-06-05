@@ -29,7 +29,7 @@ jobs:
 
       - name: Run Hello World
         run: |
-          node slack/slack.js
+          node slack/slack.js ${{ secrets.SLACK_WEBHOOK_URL }} "ma nah"
 
       - name: Send Slack message
         id: slack
