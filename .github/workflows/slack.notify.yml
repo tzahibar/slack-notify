@@ -1,3 +1,5 @@
+name: Slack Action
+
 on:
   workflow_dispatch:
     inputs:
@@ -20,6 +22,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Wait for 'build-workflow' to complete
+        run: |
+          source slack/slack.js
 
       - name: Send Slack message
         id: slack
