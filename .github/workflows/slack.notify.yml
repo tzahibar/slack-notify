@@ -3,9 +3,14 @@ name: Slack Action
 on:
   workflow_dispatch:
     inputs:
-      serviceName:
-        description: 'Service name'
-        default: 'slack-action'
+      workflow_name:
+        description: 'The name of the workflow'
+        required: true
+      run_number:
+        description: 'The run number'
+        required: true
+      branch_name:
+        description: 'The branch name'
         required: true
 
 jobs:
@@ -15,6 +20,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Env vars
+        run: |
+          echo "GITHUB_ACTOR: GITHUB_ACTOR"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -27,13 +36,13 @@ jobs:
       - name: Install axios
         run: npm install axios
 
-      - name: Run Hello World
+      - name: Notify Slack
         run: |
-          node slack/slack.js ${{ secrets.SLACK_WEBHOOK_URL }} "ma nah"
+          node slack/slack.js ${{ secrets.SLACK_WEBHOOK_URL }} ${{ inputs.workflow_name }} ${{ inputs.run_number }} ${{ inputs.branch_name }}
 
       - name: Send Slack message
         id: slack
         uses: tzahibar/slack-notify@main
         with:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          message: 'Hello ${{ inputs.serviceName }} from GitHub Actions!'
+          message: 'Hello ${{ inputs.serviceName }}, DONE!'

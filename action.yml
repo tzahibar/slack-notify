@@ -2,11 +2,14 @@ name: 'Send Slack Message'
 description: 'Sends a message to a Slack webhook URL'
 author: 'Tzahi Bar'
 inputs:
-  webhook-url:
-    description: 'The Slack webhook URL to send the message to'
+  workflow_name:
+    description: 'The name of the workflow'
     required: true
-  message:
-    description: 'The message to send to Slack'
+  run_number:
+    description: 'The run number'
+    required: true
+  branch_name:
+    description: 'The branch name'
     required: true
 outputs:
   status:

@@ -1,10 +1,14 @@
 const name = 'slack';
 const axios = require('axios');
 const url = process.argv[2];
-const message = process.argv[3];
+const workflow_name = process.argv[3];
+const run_number = process.argv[4];
+const branch_name = process.argv[5];
 
+console.log(`${workflow_name} run number: ${run_number} finished on branch ${branch_name}`);
 console.log(`Hello from ${name}!`);
-console.log(`message ${message}!`);
+
+const message = '${workflow_name} run number: ${run_number} finished on branch ${branch_name}';
 
 const data = {
     text: message,
