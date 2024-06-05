@@ -1,6 +1,9 @@
 on:
-  repository_dispatch:
-    types: [build-workflow]
+  workflow_dispatch:
+    inputs:
+      serviceName:
+        description: 'Service name'
+        required: true
 
 jobs:
   hello_world_job:
