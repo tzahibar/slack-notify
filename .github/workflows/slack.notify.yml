@@ -23,4 +23,4 @@ jobs:
         uses: tzahibar/slack-notify@main
         with:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          message: 'Hello from GitHub Actions!'
+          message: 'Hello ${{ inputs.serviceName }} from GitHub Actions!'
