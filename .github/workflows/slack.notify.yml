@@ -12,9 +12,6 @@ on:
       branch_name:
         description: 'The branch name'
         required: true
-  push:
-    branches:
-      - main
 
 jobs:
   slack-notify:
