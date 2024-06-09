@@ -5,12 +5,15 @@ on:
     inputs:
       service_name:
         description: 'The name of the service'
+        default: my_service
         required: true
       run_number:
         description: 'The run number'
+        default: 5
         required: true
       branch_name:
         description: 'The branch name'
+        default: my_branch
         required: true
   push:
     branches:
