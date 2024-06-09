@@ -38,7 +38,9 @@ jobs:
 
       - name: Notify Slack
         run: |
-          node slack/slack.js ${{ secrets.SLACK_WEBHOOK_URL }} ${{ secrets.SLACK_TOKEN }} ${{ inputs.workflow_name }} ${{ inputs.run_number }} ${{ inputs.branch_name }}
+          node slack/slack.js ${{ secrets.SLACK_TOKEN }} "${{ inputs.workflow_name }}" "${{ inputs.run_number }}" "${{ inputs.branch_name }}"
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
       - name: Send Slack message
         id: slack

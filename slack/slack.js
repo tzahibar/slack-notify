@@ -1,12 +1,15 @@
-const { WebClient } = require('@slack/web-api');// Your Slack OAuth token
-const token = process.argv[3];
+const { WebClient } = require('@slack/web-api');
+
+// Slack OAuth token
+const token = process.argv[2];
 const web = new WebClient(token);
 
-const workflow_name = process.argv[4];
-const run_number = process.argv[5];
-const branch_name = process.argv[6];
+const workflow_name = process.argv[3];
+const run_number = process.argv[4];
+const branch_name = process.argv[5];
 
-console.log(`${workflow_name} run number: ${run_number} finished on branch ${branch_name}`);
+const message = `${workflow_name} run number: ${run_number} finished on branch ${branch_name}`;
+console.log(message);
 
 async function sendSlackNotification(channel, text) {
     try {
@@ -21,4 +24,4 @@ async function sendSlackNotification(channel, text) {
     }
 }
 
-sendSlackNotification('#tzahi', 'Hello, Slack!');
+sendSlackNotification('#tzahi', message);
