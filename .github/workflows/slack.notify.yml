@@ -44,7 +44,7 @@ jobs:
 
       - name: Notify Slack
         run: |
-          node slack/slack.js ${{ secrets.SLACK_TOKEN }} "${{ inputs.workflow_name }}" "${{ inputs.service_name }}" "${{ inputs.run_number }}" "${{ inputs.branch_name }}"
+          node slack/slack.js ${{ secrets.SLACK_TOKEN }} "${{ github.event.inputs.workflow_name }}" "${{ github.event.inputs.service_name }}" "${{ github.event.inputs.run_number }}" "${{ github.event.inputs.branch_name }}"
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
