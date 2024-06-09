@@ -33,12 +33,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install axios
-        run: npm install axios
+      - name: install slack
+        run: npm install @slack/web-api
 
       - name: Notify Slack
         run: |
-          node slack/slack.js ${{ secrets.SLACK_WEBHOOK_URL }} ${{ inputs.workflow_name }} ${{ inputs.run_number }} ${{ inputs.branch_name }}
+          node slack/slack.js ${{ secrets.SLACK_WEBHOOK_URL }} ${{ secrets.SLACK_TOKEN }} ${{ inputs.workflow_name }} ${{ inputs.run_number }} ${{ inputs.branch_name }}
 
       - name: Send Slack message
         id: slack

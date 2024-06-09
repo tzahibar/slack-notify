@@ -1,28 +1,24 @@
-const name = 'slack';
-const axios = require('axios');
-const url = process.argv[2];
-const workflow_name = process.argv[3];
-const run_number = process.argv[4];
-const branch_name = process.argv[5];
+const { WebClient } = require('@slack/web-api');// Your Slack OAuth token
+const token = process.argv[3];
+const web = new WebClient(token);
+
+const workflow_name = process.argv[4];
+const run_number = process.argv[5];
+const branch_name = process.argv[6];
 
 console.log(`${workflow_name} run number: ${run_number} finished on branch ${branch_name}`);
-console.log(`Hello from ${name}!`);
 
-const message = '${workflow_name} run number: ${run_number} finished on branch ${branch_name}';
+async function sendSlackNotification(channel, text) {
+    try {
+        const result = await web.chat.postMessage({
+            channel: channel,
+            text: text,
+        });
 
-const data = {
-    text: message,
-};
-
-axios.post(url, data, {
-    headers: {
-        'Content-Type': 'application/json'
+        console.log(`Successfully sent message ${result.ts} in conversation ${channel}`);
+    } catch (error) {
+        console.error(`Error posting message: ${error}`);
     }
-})
-    .then(response => {
-        console.log('Message sent:', response.data);
-    })
-    .catch(error => {
-        console.error('Error sending message:', error);
-    });
+}
 
+sendSlackNotification('#tzahi', 'Hello, Slack!');
