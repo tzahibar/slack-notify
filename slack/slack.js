@@ -9,7 +9,7 @@ const run_number = process.argv[4];
 const branch_name = process.argv[5];
 
 console.log(`service_name: ${service_name}`);
-const message = `:white_check_mark: ${service_name} release summary:\nrun ${run_number} finished successfully on\n${branch_name}\n\n *Released Services:*\n${service_name}`;
+const message = `:white_check_mark: \`${service_name} release summary\`:\nrun ${run_number} finished successfully on\n${branch_name}\n\n *Released Services:*\n${service_name}`;
 console.log(message);
 
 async function sendSlackNotification(channel, text) {
