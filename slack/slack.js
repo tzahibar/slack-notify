@@ -8,7 +8,7 @@ const service_name = process.argv[3];
 const run_number = process.argv[4];
 const branch_name = process.argv[5];
 
-const message = `:white_check_mark: \`${service_name} release workflow\` :white_check_mark:\nStatus:*\nSuccessful\n\nSummary:\n*Run:* <https://www.ynet.co.il|Run number ${run_number}>\n\n*Branch:* ${branch_name}\n\n*Released Services:*\n${service_name}`;
+const message = `:white_check_mark: \`${service_name} release workflow\` :white_check_mark:\*Status:*\nSuccessful\n\n*Run:*\n<https://www.ynet.co.il|Run number ${run_number}>\n\n*Branch:*\n${branch_name}\n\n*Released Services:*\n${service_name}`;
 
 console.log(message);
 
