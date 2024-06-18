@@ -3,6 +3,9 @@ name: Slack Action
 on:
   workflow_dispatch:
     inputs:
+      channelId:
+        description: 'The ID of the channel'
+        required: true
       service_name:
         description: 'The name of the service'
         required: true
@@ -21,9 +24,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Env vars
-        run: |
-          echo "GITHUB_ACTOR: GITHUB_ACTOR"
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: ${{ github.event.inputs.channelId }}
+          slack-message: 'Hello ${{ github.actor }}, DONE!'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
