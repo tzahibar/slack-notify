@@ -51,7 +51,7 @@ jobs:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
       - name: Send Slack message
-        id: slack
+        id: slacks
         uses: tzahibar/slack-notify@main
         with:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
