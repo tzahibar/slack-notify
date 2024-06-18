@@ -33,7 +33,7 @@ jobs:
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
           channel-id: '${{ github.event.inputs.channelId }}'
           # For posting a simple plain text message
-          slack-message: "GitHub build result:"
+          slack-message: ":white_check_mark: \`${service_name} release workflow\` :white_check_mark:\n*Status:*\nSuccessful\n\n*Run:*\n<https://www.ynet.co.il|Run number ${run_number}>\n\n*Branch:*\n${branch_name}\n\n*Released Services:*\n${service_name}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
@@ -50,7 +50,8 @@ jobs:
 
       - name: Notify Slack
         run: |
-          node slack/slack.js ${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.workflow_name }} ${{ github.event.inputs.service_name }} ${{ github.event.inputs.run_number }} ${{ github.event.inputs.branch_name }}
+#          node slack/slack.js ${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.workflow_name }} ${{ github.event.inputs.service_name }} ${{ github.event.inputs.run_number }} ${{ github.event.inputs.branch_name }}
+          echo "hi"
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
