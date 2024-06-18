@@ -24,12 +24,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Send custom JSON data to Slack workflow
-        id: slack_notify
+      - name: Post to a Slack channel
+        id: slack
         uses: slackapi/slack-github-action@v1.26.0
         with:
-          channel-id: ${{ github.event.inputs.channelId }}
-          slack-message: 'Hello ${{ github.actor }}, DONE!'
+          channel-id: '${{ github.event.inputs.channelId }}'
+          slack-message: "Hello, DONE!"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_TOKEN }}
 
