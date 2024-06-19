@@ -35,16 +35,7 @@ jobs:
           # For posting a simple plain text message
           payload: |
             {
-              "text": "oooj",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "asdqasd"
-                  }
-                }
-              ]
+              "text": "oooj"
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
