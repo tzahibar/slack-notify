@@ -36,6 +36,7 @@ jobs:
           payload: |
             {
               "text": "oooj"
+              "text": "oooj"
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
