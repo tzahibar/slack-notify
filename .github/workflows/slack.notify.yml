@@ -33,7 +33,7 @@ jobs:
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
           channel-id: '${{ github.event.inputs.channelId }}'
           # For posting a simple plain text message
-          slack-message: ":white_check_mark: \'${service_name} release workflow\' :white_check_mark:"
+          slack-message: "GitHub build result:"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
