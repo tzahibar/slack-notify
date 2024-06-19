@@ -40,26 +40,26 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20' # or any other Node.js version you need
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: install slack
-        run: npm install @slack/web-api
-
-      - name: Notify Slack
-        run: |
-          node slack/slack.js ${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.workflow_name }} ${{ github.event.inputs.service_name }} ${{ github.event.inputs.run_number }} ${{ github.event.inputs.branch_name }}
-        env:
-          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-
-      - name: Send Slack message
-        id: slacks
-        uses: tzahibar/slack-notify@main
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          message: 'Hello ${{ inputs.serviceName }}, DONE!'
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: '20' # or any other Node.js version you need
+#
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: install slack
+#        run: npm install @slack/web-api
+#
+#      - name: Notify Slack
+#        run: |
+#          node slack/slack.js ${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.workflow_name }} ${{ github.event.inputs.service_name }} ${{ github.event.inputs.run_number }} ${{ github.event.inputs.branch_name }}
+#        env:
+#          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+#
+#      - name: Send Slack message
+#        id: slacks
+#        uses: tzahibar/slack-notify@main
+#        with:
+#          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+#          message: 'Hello ${{ inputs.serviceName }}, DONE!'
