@@ -3,6 +3,9 @@ name: Slack Action
 on:
   workflow_dispatch:
     inputs:
+      runStatus:
+        description: 'The status of the run'
+        required: true
       channelId:
         description: 'The ID of the channel'
         required: true
@@ -15,6 +18,9 @@ on:
       branch_name:
         description: 'The branch name'
         required: true
+      workflow_type:
+        description: 'The type of the workflow'
+        required: true
 
 jobs:
   slack-notify:
@@ -25,6 +31,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Post to a Slack channel
+        if: ${{ github.event.inputs.runStatus == 'success' }}
         id: slack
         uses: slackapi/slack-github-action@v1.26.0
         with:
@@ -35,7 +42,24 @@ jobs:
           # For posting a simple plain text message
           payload: |
             {
-              "text": ":white_check_mark: `${{ github.event.inputs.service_name }} release workflow` :white_check_mark:\n*Status:*\nSuccessful\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ github.event.inputs.run_number }}>\n\n*Branch:*\n${{ github.event.inputs.branch_name }}\n\n*Released Services:*\n${{ github.event.inputs.service_name }}"
+              "text": ":white_check_mark: `${{ github.event.inputs.service_name }} ${{ github.event.inputs.workflow_type }} workflow` :white_check_mark:\n*Status:*\nSuccessful\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ github.event.inputs.run_number }}>\n\n*Branch:*\n${{ github.event.inputs.branch_name }}\n\n*Released Services:*\n${{ github.event.inputs.service_name }}"
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
+
+      - name: Post to a Slack channel
+        if: ${{ github.event.inputs.runStatus == 'failure' }}
+        id: slack
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          # Slack channel id, channel name, or user id to post message.
+          # See also: https://api.slack.com/methods/chat.postMessage#channels
+          # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
+          channel-id: '${{ github.event.inputs.channelId }}'
+          # For posting a simple plain text message
+          payload: |
+            {
+              "text": ":red_circle: `${{ github.event.inputs.service_name }} ${{ github.event.inputs.workflow_type }} workflow` :red_circle:\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ github.event.inputs.run_number }}>\n\n*Branch:*\n${{ github.event.inputs.branch_name }}\n\n*Released Services:*\n${{ github.event.inputs.service_name }}"
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
