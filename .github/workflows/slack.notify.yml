@@ -35,7 +35,9 @@ jobs:
           # For posting a simple plain text message
           payload: |
             {
-              "text": ":white_check_mark: `${{ github.event.inputs.service_name }} release workflow` :white_check_mark:\n*Status:*\nSuccessful\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ github.event.inputs.run_number }}>\n*Branch:*\n${{ github.event.inputs.branch_name }}"
+              "text": ":white_check_mark: `${{ github.event.inputs.service_name }} release workflow` :white_check_mark:\n*Status:*\nSuccessful\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ github.event.inputs.run_number }}>\n\n*Branch:*\n${{ github.event.inputs.branch_name }}
+
+  *Released Services:*"
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
