@@ -28,18 +28,13 @@ jobs:
     name: Slack notification
     steps:
       - name: Send Slack Notification
-        if: ${{ inputs.runStatus == 'success' }}
-        id: slack
+        if: ${{ inputs.run_status == 'succeeded' }}
         uses: slackapi/slack-github-action@v1.26.0
         with:
-          # Slack channel id, channel name, or user id to post message.
-          # See also: https://api.slack.com/methods/chat.postMessage#channels
-          # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
-          channel-id: '${{ github.event.inputs.channelId }}'
-          # For posting a simple plain text message
+          channel-id: '${{ inputs.channel_id }}'
           payload: |
             {
-              "text": ":white_check_mark: `${{ github.event.inputs.service_name }} ${{ github.event.inputs.workflow_type }} workflow` :white_check_mark:\n*Status:*\nSuccessful\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ github.event.inputs.run_number }}>\n\n*Branch:*\n${{ github.event.inputs.branch_name }}\n\n*Released Services:*\n${{ github.event.inputs.service_name }}"
+              "text": ":white_check_mark: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :white_check_mark:\n*Status:*\nSuccessful\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
