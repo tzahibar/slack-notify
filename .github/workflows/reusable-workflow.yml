@@ -40,18 +40,18 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
       - name: Post to a Slack channel
-        if: ${{ github.event.inputs.runStatus == 'failure' }}
+        if: ${{ inputs.run_status == 'failure' }}
         id: slack
         uses: slackapi/slack-github-action@v1.26.0
         with:
           # Slack channel id, channel name, or user id to post message.
           # See also: https://api.slack.com/methods/chat.postMessage#channels
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
-          channel-id: '${{ github.event.inputs.channelId }}'
+          channel-id: '${{ inputs.channelId }}'
           # For posting a simple plain text message
           payload: |
             {
-              "text": ":red_circle: `${{ github.event.inputs.service_name }} ${{ github.event.inputs.workflow_type }} workflow` :red_circle:\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ github.event.inputs.run_number }}>\n\n*Branch:*\n${{ github.event.inputs.branch_name }}\n\n*Released Services:*\n${{ github.event.inputs.service_name }}"
+              "text": ":red_circle: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :red_circle:\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
