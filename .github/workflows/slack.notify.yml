@@ -3,10 +3,10 @@ name: Slack Action
 on:
   workflow_dispatch:
     inputs:
-      runStatus:
+      run_status:
         description: 'The status of the run'
         required: true
-      channelId:
+      channel_id:
         description: 'The ID of the channel'
         required: true
       service_name:
