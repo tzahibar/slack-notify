@@ -27,9 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Slack notification
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Post to a Slack channel
         if: ${{ github.event.inputs.runStatus == 'success' }}
         id: slack

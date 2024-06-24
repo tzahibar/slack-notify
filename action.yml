@@ -1,6 +1,6 @@
-name: 'Send Slack Message'
-description: 'Sends a message to a Slack webhook URL'
-author: 'Tzahi Bar'
+name: 'Slack Notify'
+description: 'Send a Slack notification based on input parameters'
+
 inputs:
   run_status:
     description: 'The status of the run'
@@ -20,9 +20,17 @@ inputs:
   workflow_type:
     description: 'The type of the workflow'
     required: true
-outputs:
-  status:
-    description: 'The HTTP status code of the request'
+
 runs:
-  using: 'node20'
-  main: 'index.js'
+  using: 'composite'
+  steps:
+    - name: Send Slack Notification
+      if: ${{ inputs.run_status == 'succeeded' }}
+      run: |
+        echo "Run Status: ${{ inputs.run_status }}"
+        echo "Channel ID: ${{ inputs.channel_id }}"
+        echo "Service Name: ${{ inputs.service_name }}"
+        echo "Run Number: ${{ inputs.run_number }}"
+        echo "Branch Name: ${{ inputs.branch_name }}"
+        echo "Workflow Type: ${{ inputs.workflow_type }}"
+      shell: bash
