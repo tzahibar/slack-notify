@@ -13,7 +13,7 @@ jobs:
         run: exit 1  # Simulating a failure
 
       - name: Post to Slack on failure
-        uses: tzahibar/slack-notify
+        uses: tzahibar/slack-notify@main
         with:
           run_status: ${{ job.status }}
           channelId: 'your-slack-channel-id'
