@@ -43,5 +43,5 @@ runs:
         channel-id: '${{ inputs.channelId }}'
         payload: |
           {
-            "text": ":red_circle: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :red_circle:\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
+            "text": ":white_check_mark: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :white_check_mark:\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
           }
