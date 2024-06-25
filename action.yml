@@ -25,7 +25,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Post to a Slack channel
+    - name: Post to Slack on failure
       if: ${{ inputs.run_status == 'failure' }}
       id: slack
       uses: slackapi/slack-github-action@v1.26.0
@@ -33,5 +33,17 @@ runs:
         channel-id: '${{ inputs.channelId }}'
         payload: |
           {
-            "text": ":red_circle: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :red_circle:\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
+            "text": ":red_circle: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :red_circle:\n*Status:*\nFailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
           }
+
+    - name: Post to Slack on success
+      if: ${{ inputs.run_status == 'succeeded' }}
+      uses: slackapi/slack-github-action@v1.26.0
+      with:
+        channel-id: '${{ inputs.channelId }}'
+        payload: |
+          {
+            "text": ":white_check_mark: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :white_check_mark:\n*Status:*\Succeeded\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
+          }
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
