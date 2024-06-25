@@ -6,7 +6,7 @@ inputs:
   run_status:
     description: 'The status of the workflow run.'
     required: true
-  channelId:
+  channel_id:
     description: 'The Slack channel ID to post the message to.'
     required: true
   service_name:
@@ -30,7 +30,7 @@ runs:
       id: slack
       uses: slackapi/slack-github-action@v1.26.0
       with:
-        channel-id: '${{ inputs.channelId }}'
+        channel-id: '${{ inputs.channel_id }}'
         payload: |
           {
             "text": ":red_circle: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :red_circle:\n\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
@@ -40,7 +40,7 @@ runs:
       if: ${{ inputs.run_status == 'succeeded' }}
       uses: slackapi/slack-github-action@v1.26.0
       with:
-        channel-id: '${{ inputs.channelId }}'
+        channel-id: '${{ inputs.channel_id }}'
         payload: |
           {
             "text": ":white_check_mark: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :white_check_mark:\n\n*Status:*\nsucceeded\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
