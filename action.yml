@@ -25,10 +25,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: test
-      run: echo "Hello, world!"
-      shell: bash
-
     - name: Post to a Slack channel
 #      if: ${{ inputs.run_status == 'failure' }}
       id: slack
