@@ -13,7 +13,7 @@ jobs:
         uses: tzahibar/slack-notify@main
         with:
           run_status: ${{ job.status }}
-          channelId: 'your-slack-channel-id'
+          channelId: 'C07258FL3FS'
           service_name: 'example-service'
           workflow_type: 'build'
           run_number: ${{ github.run_number }}
