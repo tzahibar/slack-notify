@@ -1,4 +1,4 @@
-name: Example Workflow
+name: Slack Testing
 
 on:
   push:
