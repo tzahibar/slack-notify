@@ -9,6 +9,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Run some tests
+        run: exit 1  # Simulating a failure
+
       - name: Post to Slack on failure
         uses: tzahibar/slack-notify@main
         with:
