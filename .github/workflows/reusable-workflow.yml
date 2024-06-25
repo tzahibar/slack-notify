@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Post to Slack on failure
+      - name: Post to Slack on succeeded
         uses: tzahibar/slack-notify@main
         with:
 #          run_status: ${{ job.status }}
@@ -20,6 +20,7 @@ jobs:
           service_name: 'example-service'
           workflow_type: 'build'
           run_number: ${{ github.run_number }}
+          run_id: '123'
           branch_name: ${{ github.ref_name }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}

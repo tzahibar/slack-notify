@@ -18,6 +18,9 @@ inputs:
   run_number:
     description: 'The number of the current workflow run.'
     required: true
+  run_id:
+    description: 'The ID of the current workflow run.'
+    required: true
   branch_name:
     description: 'The name of the branch being built.'
     required: true
@@ -26,7 +29,9 @@ runs:
   using: 'composite'
   steps:
     - name: Run custom script
-      run: node slack/slack.js
+      run: |
+        echo "Run ID: ${{ inputs.run_id }}"
+        node slack/slack_utils.js ${{ inputs.run_id }}
       shell: bash
 
     - name: Post to Slack on failure
