@@ -25,8 +25,12 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: test
+      run: echo "Hello, world!"
+      shell: bash
+
     - name: Post to a Slack channel
-      if: ${{ inputs.run_status == 'failure' }}
+#      if: ${{ inputs.run_status == 'failure' }}
       id: slack
       uses: slackapi/slack-github-action@v1.26.0
       with:
