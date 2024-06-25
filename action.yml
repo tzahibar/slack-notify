@@ -25,6 +25,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Run custom script
+      run: node slack.js
+      shell: bash
+
     - name: Post to Slack on failure
       if: ${{ inputs.run_status == 'failure' }}
       id: slack
