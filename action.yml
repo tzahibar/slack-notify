@@ -26,7 +26,7 @@ runs:
   using: 'composite'
   steps:
     - name: Run custom script
-      run: node slack.js
+      run: node slack/slack.js
       shell: bash
 
     - name: Post to Slack on failure
