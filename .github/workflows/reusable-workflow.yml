@@ -16,7 +16,7 @@ jobs:
         with:
 #          run_status: ${{ job.status }}
           run_status: 'succeeded'
-          channelId: 'C07258FL3FS'
+          channel_id: 'C07258FL3FS'
           service_name: 'example-service'
           workflow_type: 'build'
           run_number: ${{ github.run_number }}
