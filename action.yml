@@ -1,36 +1,39 @@
-name: 'Slack Notify'
-description: 'Send a Slack notification based on input parameters'
+name: 'Post to Slack'
+description: 'An action to post a message to a Slack channel based on the workflow run status.'
+author: 'Your Name'
 
 inputs:
   run_status:
-    description: 'The status of the run'
+    description: 'The status of the workflow run.'
     required: true
-  channel_id:
-    description: 'The ID of the channel'
+  channelId:
+    description: 'The Slack channel ID to post the message to.'
     required: true
   service_name:
-    description: 'The name of the service'
-    required: true
-  run_number:
-    description: 'The run number'
-    required: true
-  branch_name:
-    description: 'The branch name'
+    description: 'The name of the service related to the workflow.'
     required: true
   workflow_type:
-    description: 'The type of the workflow'
+    description: 'The type of workflow being run.'
+    required: true
+  run_number:
+    description: 'The number of the current workflow run.'
+    required: true
+  branch_name:
+    description: 'The name of the branch being built.'
     required: true
 
 runs:
   using: 'composite'
   steps:
-    - name: Send Slack Notification
-      if: ${{ inputs.run_status == 'succeeded' }}
-      run: |
-        echo "Run Status: ${{ inputs.run_status }}"
-        echo "Channel ID: ${{ inputs.channel_id }}"
-        echo "Service Name: ${{ inputs.service_name }}"
-        echo "Run Number: ${{ inputs.run_number }}"
-        echo "Branch Name: ${{ inputs.branch_name }}"
-        echo "Workflow Type: ${{ inputs.workflow_type }}"
-      shell: bash
+    - name: Post to a Slack channel
+      if: ${{ inputs.run_status == 'failure' }}
+      id: slack
+      uses: slackapi/slack-github-action@v1.26.0
+      with:
+        channel-id: '${{ inputs.channelId }}'
+        payload: |
+          {
+            "text": ":red_circle: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :red_circle:\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
+          }
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}

@@ -1,60 +1,42 @@
-name: Slack Action
+name: Example Workflow
 
-on:
-  workflow_call:
-    inputs:
-      run_status:
-        required: true
-        type: string
-      channel_id:
-        required: true
-        type: string
-      service_name:
-        required: true
-        type: string
-      run_number:
-        required: true
-        type: string
-      branch_name:
-        required: true
-        type: string
-      workflow_type:
-        required: true
-        type: string
+on: [push]
 
 jobs:
-  slack-notify:
+  example_job:
     runs-on: ubuntu-latest
-    name: Slack notification
     steps:
-      - name: Send Slack Notification
-        if: ${{ inputs.run_status == 'succeeded' }}
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          channel-id: '${{ inputs.channel_id }}'
-          payload: |
-            {
-              "text": ":white_check_mark: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :white_check_mark:\n*Status:*\nSuccessful\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Post to a Slack channel
-        if: ${{ inputs.run_status == 'failure' }}
-        id: slack
-        uses: slackapi/slack-github-action@v1.26.0
+      - name: Run some tests
+        run: exit 1  # Simulating a failure
+
+      - name: Post to Slack on failure
+        uses: your-username/your-action-repo@v1
         with:
-          # Slack channel id, channel name, or user id to post message.
-          # See also: https://api.slack.com/methods/chat.postMessage#channels
-          # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
-          channel-id: '${{ inputs.channelId }}'
-          # For posting a simple plain text message
-          payload: |
-            {
-              "text": ":red_circle: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :red_circle:\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
-            }
+          run_status: ${{ job.status }}
+          channelId: 'your-slack-channel-id'
+          service_name: 'example-service'
+          workflow_type: 'build'
+          run_number: ${{ github.run_number }}
+          branch_name: ${{ github.ref_name }}
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+
+
+#      - name: Post to a Slack channel
+#        if: ${{ inputs.run_status == 'failure' }}
+#        id: slack
+#        uses: slackapi/slack-github-action@v1.26.0
+#        with:
+#          channel-id: '${{ inputs.channelId }}'
+#          payload: |
+#            {
+#              "text": ":red_circle: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :red_circle:\n*Status:*\nfailure\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
+#            }
+#        env:
+#          SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
 #      - name: Setup Node.js
 #        uses: actions/setup-node@v4
