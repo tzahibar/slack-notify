@@ -45,5 +45,3 @@ runs:
           {
             "text": ":white_check_mark: `${{ inputs.service_name }} ${{ inputs.workflow_type }} workflow` :white_check_mark:\n*Status:*\Succeeded\n\n*Run:*\n<https://www.ynet.co.il|Run number ${{ inputs.run_number }}>\n\n*Branch:*\n${{ inputs.branch_name }}\n\n*Released Services:*\n${{ inputs.service_name }}"
           }
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
