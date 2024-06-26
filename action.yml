@@ -31,7 +31,7 @@ runs:
     - name: Run custom script
       run: |
         echo "Run ID: ${{ inputs.run_id }}"
-        node slack/slack_utils.js ${{ inputs.run_id }}
+        node slack/slack_utils.js "123"
       shell: bash
 
     - name: Post to Slack on failure
