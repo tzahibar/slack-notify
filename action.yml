@@ -31,9 +31,17 @@ runs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # or any other Node.js version you need
+
+    - name: Install dependencies
+      shell: bash
+      run: npm install
+
     - name: Run custom script
       run: |
-        echo "Run ID: ${{ inputs.run_id }}"
         node slack/slack_utils.js "123"
       shell: bash
 
